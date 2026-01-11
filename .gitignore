@@ -1,0 +1,12 @@
+# Godot 4
+.import/
+.export/
+.godot/
+/android/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Editor backups
+*.tmp
