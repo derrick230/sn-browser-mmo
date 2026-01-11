@@ -15,6 +15,7 @@ extends Node2D
 # Player.gd expects these to exist (it iterates enemies_by_id / checks enemies_by_tile)
 var enemies_by_tile: Dictionary = {} # Vector2i -> Enemy
 var enemies_by_id: Dictionary = {}   # int -> Enemy
+var _next_enemy_id: int = 1
 
 
 func _enter_tree() -> void:
@@ -142,14 +143,12 @@ func _reconstruct_path(came_from: Dictionary, current: Vector2i, start: Vector2i
 
 func register_enemy(e: Enemy) -> void:
 	enemies_by_tile[e.tile_pos] = e
-	enemies_by_id[e.get_instance_id()] = e
-
+	enemies_by_id[e.net_id] = e
 
 func unregister_enemy(e: Enemy) -> void:
 	if enemies_by_tile.get(e.tile_pos) == e:
 		enemies_by_tile.erase(e.tile_pos)
-	enemies_by_id.erase(e.get_instance_id())
-
+	enemies_by_id.erase(e.net_id)
 
 func get_enemy_at(tile: Vector2i) -> Enemy:
 	return enemies_by_tile.get(tile, null)
@@ -171,16 +170,16 @@ func spawn_enemy_at(tile: Vector2i) -> Enemy:
 		return null
 
 	var e: Enemy = enemy_scene.instantiate() as Enemy
+	e.net_id = _next_enemy_id
+	_next_enemy_id += 1
 	add_child(e)
-	e.set_tile(self, tile) # your Enemy script should set tile_pos + position
+	e.set_tile(self, tile)
 	register_enemy(e)
 	return e
-
 
 func spawn_initial_enemies() -> void:
 	for t: Vector2i in enemy_spawn_tiles:
 		spawn_enemy_at(t)
-
 
 func kill_enemy(e: Enemy) -> void:
 	if e == null:

@@ -67,7 +67,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		# Click enemy => select target (and approach if a slot is active)
 		var clicked_enemy: Enemy = world.get_enemy_at(clicked_tile)
 		if clicked_enemy != null:
-			target_enemy_id = clicked_enemy.get_instance_id()
+			target_enemy_id = clicked_enemy.net_id
 
 			# If we already have a move selected, start/continue auto-cast and move into range
 			if active_slot != -1:
@@ -301,7 +301,7 @@ func _start_auto_cast(slot: int) -> void:
 		if acquired == null:
 			is_auto_casting = false
 			return
-		target_enemy_id = acquired.get_instance_id()
+		target_enemy_id = acquired.net_id
 		enemy = acquired
 
 	# Plan movement if needed

@@ -5,6 +5,7 @@ class_name Enemy
 var hp: int = 3
 
 var tile_pos: Vector2i
+var net_id: int = 0
 
 func _ready() -> void:
 	hp = max_hp
