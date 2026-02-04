@@ -1,12 +1,12 @@
-# Godot 4
-.import/
-.export/
+# Dependencies
+node_modules/
+package-lock.json
+
+# Build outputs
+sn-browser-mmo-client/js/*.bundle.js
+sn-browser-mmo-client/js/*.bundle.js.map
+
+# Godot
 .godot/
-/android/
-
-# OS junk
-.DS_Store
-Thumbs.db
-
-# Editor backups
 *.tmp
+*.import

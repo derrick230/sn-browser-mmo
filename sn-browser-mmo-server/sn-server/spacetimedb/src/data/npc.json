@@ -1,0 +1,14 @@
+{
+	"npcs": [
+		{
+			"behavior_key": "npc_behavior_professor_starter",
+			"default_dialogue_key": "npc_behavior_generic",
+			"display_name": "Professor Tut",
+			"npc_id": 1,
+			"sprite_id": "sprite_professor_tut",
+			"x": -10,
+			"y": 9,
+			"zone_id": 1
+		}
+	]
+}

@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=4 uid="uid://b5epqbdjusbsc"]
+
+[ext_resource type="Script" uid="uid://bjod20neaj3si" path="res://scripts/world.gd" id="1_oq0bd"]
+[ext_resource type="TileSet" uid="uid://bkjfxeg57e00s" path="res://assets/tiles/woods.tres" id="2_yded7"]
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_oq0bd")
+zone_id = 2
+
+[node name="TileContainer" type="Node2D" parent="."]
+
+[node name="Ground" type="TileMapLayer" parent="TileContainer"]
+tile_map_data = PackedByteArray("AAD+//7/AAALAAgAAAD+////AAALAAgAAAD+/wEAAAALAAgAAAD+/wAAAAALAAgAAAD//wEAAAALAAgAAAAAAAEAAAALAAgAAAABAAEAAAALAAgAAAABAAAAAAALAAgAAAAAAAAAAAALAAgAAAD//wAAAAALAAgAAAD/////AAALAAgAAAAAAP//AAALAAgAAAABAP//AAALAAgAAAABAP7/AAADAAgAAAAAAP7/AAALAAgAAAD///7/AAALAAgAAAA=")
+tile_set = ExtResource("2_yded7")
+
+[node name="Walls" type="TileMapLayer" parent="TileContainer"]
+tile_map_data = PackedByteArray("AAACAAEAAAANAAgAAAACAAAAAAANAAgAAAACAP//AAANAAgAAAACAP7/AAANAAgAAAACAP3/AAANAAcAAAACAAIAAAANAAkAAAABAAIAAAALAAoAAAAAAAIAAAALAAoAAAD//wIAAAALAAoAAAD+/wIAAAALAAoAAAD9/wEAAAAJAAgAAAD9/wAAAAAJAAgAAAD9////AAAJAAgAAAD9//7/AAAJAAgAAAD9/wIAAAAJAAkAAAD9//3/AAAJAAcAAAD+//3/AAALAAYAAAD///3/AAALAAYAAAAAAP3/AAALAAYAAAABAP3/AAALAAYAAAA=")
+tile_set = ExtResource("2_yded7")
+
+[node name="TransitionContainer" type="Node2D" parent="."]
+
+[node name="Transition_1_zone2x1" type="TileMapLayer" parent="TransitionContainer"]
+tile_map_data = PackedByteArray("AAD+//7/AAAFAAUAAAA=")
+tile_set = ExtResource("2_yded7")
+
+[node name="Spawn_zone1x2" type="TileMapLayer" parent="TransitionContainer"]
+tile_map_data = PackedByteArray("AAABAP7/AAAGAAUAAAA=")
+tile_set = ExtResource("2_yded7")
+
+[node name="NPCContainer" type="Node2D" parent="."]
+
+[node name="InteractableContainer" type="Node2D" parent="."]

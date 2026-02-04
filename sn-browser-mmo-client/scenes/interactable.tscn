@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://b2wa2inlfp1so"]
+
+[ext_resource type="Script" uid="uid://ca034goe23gqx" path="res://scripts/interactable.gd" id="1_56v82"]
+[ext_resource type="SpriteFrames" uid="uid://clmu2aul85scn" path="res://assets/playersprite/player.tres" id="2_ij5l6"]
+
+[node name="Interactable" type="Node2D"]
+script = ExtResource("1_56v82")
+sprite_id = "sprite_"
+behavior_key = "interactable_behavior_"
+default_dialogue_key = "interactable_behavior_generic"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(8, 0)
+sprite_frames = ExtResource("2_ij5l6")
+animation = &"idle_down"
+
+[node name="ClickBox" type="Area2D" parent="."]

@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://b5m2k8qax3nqr"]
+
+[ext_resource type="Script" uid="uid://c8kf3nap2x4nq" path="res://scripts/player.gd" id="1_fl0hn"]
+[ext_resource type="Script" uid="uid://qsp16pvt81ci" path="res://scripts/player_input.gd" id="2_8byqd"]
+[ext_resource type="SpriteFrames" uid="uid://clmu2aul85scn" path="res://assets/playersprite/player.tres" id="3_qhqgy"]
+
+[node name="Player" type="Node2D"]
+script = ExtResource("1_fl0hn")
+
+[node name="PlayerInput" type="Node" parent="."]
+script = ExtResource("2_8byqd")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("3_qhqgy")
+animation = &"idle_down"
+offset = Vector2(0, -8)

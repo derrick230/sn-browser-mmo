@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cssh7ucul78c3"]
-
-[ext_resource type="PackedScene" uid="uid://dxgwdk04epodl" path="res://Sprite/player_sprite.tscn" id="1_my1ri"]
-
-[node name="RemotePlayer" type="Node2D"]
-
-[node name="Sprite" parent="." instance=ExtResource("1_my1ri")]

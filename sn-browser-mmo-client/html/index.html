@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>SN Browser MMO</title>
+    
+    <!-- Load SpacetimeDB Bridge BEFORE Godot engine -->
+    <!-- The bridge will handle OIDC callback automatically if on /callback URL -->
+    <script src="js/spacetime-bridge.bundle.js"></script>
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #000;
+            overflow: hidden;
+        }
+        #canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+        #login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-family: Arial, sans-serif;
+            z-index: 1000;
+        }
+        #login-overlay.hidden {
+            display: none;
+        }
+        #login-overlay button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+        }
+        #logout-button {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 8px 16px;
+            background: rgba(255, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            z-index: 999;
+            font-size: 14px;
+        }
+        #logout-button:hover {
+            background: rgba(255, 0, 0, 0.9);
+        }
+    </style>
+</head>
+<body>
+    <!-- Login overlay (shown while authenticating) -->
+    <div id="login-overlay">
+        <h2>Logging you in...</h2>
+        <p>Please wait while we authenticate with SpacetimeAuth</p>
+    </div>
+    
+    <!-- Logout button (shown after authentication) -->
+    <button id="logout-button" style="display: none;" onclick="if (window.SNBridge && window.SNBridge.logout) window.SNBridge.logout();">Logout</button>
+    
+    <canvas id="canvas">
+        HTML5 canvas appears to be unsupported in the current browser.<br>
+        Please try updating or use a different browser.
+    </canvas>
+    
+    <script>
+        // Hide login overlay once bridge is loaded and connection is established
+        function hideLoginOverlay() {
+            const overlay = document.getElementById('login-overlay');
+            if (overlay) {
+                overlay.classList.add('hidden');
+            }
+            const logoutBtn = document.getElementById('logout-button');
+            if (logoutBtn) {
+                logoutBtn.style.display = 'block';
+            }
+        }
+        
+        // Verify bridge is loaded (skip if on callback page - will reload)
+        if (!window.location.pathname.startsWith('/callback')) {
+            function checkBridge() {
+                if (typeof window.SNBridge !== 'undefined') {
+                    console.log('[HTML] SNBridge loaded successfully');
+                    // Hide overlay after a short delay to allow connection
+                    setTimeout(hideLoginOverlay, 2000);
+                } else {
+                    console.warn('[HTML] SNBridge not loaded yet, retrying...');
+                    setTimeout(checkBridge, 100);
+                }
+            }
+            checkBridge();
+        }
+        
+        // Verify canvas exists
+        var canvas = document.getElementById('canvas');
+        if (!canvas) {
+            console.error('[HTML] Canvas element not found!');
+        } else {
+            console.log('[HTML] Canvas element found:', canvas.id);
+        }
+    </script>
+    
+    <!-- Godot engine script - MUST be loaded as regular script (not module) -->
+    <!-- This will automatically load index.wasm and index.pck -->
+    <script src="index.js"></script>
+</body>
+</html>

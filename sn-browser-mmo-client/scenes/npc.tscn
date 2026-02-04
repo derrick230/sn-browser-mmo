@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://deo1qjxobgk42"]
+
+[ext_resource type="Script" uid="uid://dlysp8rr0uyt0" path="res://scripts/npc.gd" id="1_nh2m4"]
+[ext_resource type="SpriteFrames" uid="uid://clmu2aul85scn" path="res://assets/playersprite/player.tres" id="2_abqhh"]
+
+[node name="NPC" type="Node2D"]
+script = ExtResource("1_nh2m4")
+sprite_id = "sprite_"
+behavior_key = "npc_behavior_"
+default_dialogue_key = "npc_behavior_generic"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(8, 0)
+sprite_frames = ExtResource("2_abqhh")
+animation = &"idle_down"
+
+[node name="ClickBox" type="Area2D" parent="."]

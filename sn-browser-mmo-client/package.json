@@ -1,0 +1,17 @@
+{
+  "name": "sn-browser-mmo-client",
+  "version": "1.0.0",
+  "description": "Browser-based MMO client with SpacetimeDB",
+  "type": "module",
+  "scripts": {
+    "build:bridge": "node build-bridge.js",
+    "watch:bridge": "node build-bridge.js --watch"
+  },
+  "dependencies": {
+    "spacetimedb": "^1.11.2",
+    "oidc-client-ts": "^3.0.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.19.0"
+  }
+}

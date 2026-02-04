@@ -1,0 +1,12 @@
+[gd_scene load_steps=4 format=3 uid="uid://dy8fqnbxq8eyt"]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://b5m2k8qax3nqr" path="res://scenes/player.tscn" id="3_h2yge"]
+[ext_resource type="PackedScene" path="res://scenes/path_preview.tscn" id="4_path"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_ig7tw")
+
+[node name="LocalPlayer" parent="." instance=ExtResource("3_h2yge")]
+
+[node name="PathPreview" parent="." instance=ExtResource("4_path")]

@@ -1,0 +1,14 @@
+{
+	"interactables": [
+		{
+			"behavior_key": "interactable_behavior_sign",
+			"default_dialogue_key": "interactable_behavior_generic",
+			"display_name": "Tutorial Sign",
+			"interactable_id": 1,
+			"sprite_id": "sprite_sign",
+			"x": 4,
+			"y": 6,
+			"zone_id": 1
+		}
+	]
+}
