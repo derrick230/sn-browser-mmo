@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://jlbfdqrygg3h"]
 
-[ext_resource type="Script" path="res://scenes/quest_debug_panel.gd" id="1_cwqgi"]
+[ext_resource type="Script" uid="uid://c6ufdu2i8068q" path="res://scenes/quest_debug_panel.gd" id="1_cwqgi"]
 
 [node name="QuestDebugPanel" type="PanelContainer"]
 visible = false
@@ -39,10 +39,12 @@ text = "X"
 [node name="BodyTabs" type="TabContainer" parent="Margin/VBox"]
 layout_mode = 2
 size_flags_vertical = 3
-current_tab = 0
+current_tab = 1
 
 [node name="QuestsTab" type="Control" parent="Margin/VBox/BodyTabs"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 metadata/_tab_index = 0
 
 [node name="QuestsVBox" type="VBoxContainer" parent="Margin/VBox/BodyTabs/QuestsTab"]
@@ -65,12 +67,20 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="FlagsTab" type="Control" parent="Margin/VBox/BodyTabs"]
-visible = false
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 metadata/_tab_index = 1
 
 [node name="FlagsScroll" type="ScrollContainer" parent="Margin/VBox/BodyTabs/FlagsTab"]
-layout_mode = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="FlagsVBox" type="VBoxContainer" parent="Margin/VBox/BodyTabs/FlagsTab/FlagsScroll"]
 layout_mode = 2

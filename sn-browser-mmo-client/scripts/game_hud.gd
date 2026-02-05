@@ -58,6 +58,8 @@ func _ready() -> void:
 		if not quest_debug_panel.request_refresh_debug.is_connected(_on_quest_debug_refresh_requested):
 			quest_debug_panel.request_refresh_debug.connect(_on_quest_debug_refresh_requested)
 		print("[GAMEHUD] Connected to QuestDebugPanel.request_refresh_debug")
+	else:
+		print("[GAMEHUD] QuestDebugPanel not found under UIRoot")
 	# Connect network_client for quest debug snapshot (real data from SpacetimeDB)
 	var nc = get_node_or_null("/root/network_client")
 	if nc and nc.has_signal("quest_debug_snapshot_received"):
@@ -273,9 +275,12 @@ func _on_quest_debug_refresh_requested() -> void:
 
 
 func _on_quest_debug_snapshot_received(quest: Dictionary, flags: Array) -> void:
+	print("[GAMEHUD] _on_quest_debug_snapshot_received quest_keys=", quest.keys(), " flags=", flags.size(), " panel=", quest_debug_panel)
 	if quest_debug_panel:
 		quest_debug_panel.set_quest_debug(quest)
 		quest_debug_panel.set_flag_debug(flags)
+	else:
+		print("[GAMEHUD] QuestDebugPanel is null; cannot render quest/flags")
 
 ## Called when player interacts with NPC/interactable (dialogue shown).
 ## If quest debug panel is visible, auto-refresh after a short delay (quest may have started/progressed).

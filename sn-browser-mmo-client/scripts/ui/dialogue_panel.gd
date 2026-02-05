@@ -43,7 +43,22 @@ func _on_option_pressed(option_id: int) -> void:
 			var ok = JavaScriptBridge.eval("typeof window.SNBridge?.send_dialogue_choice === 'function'", true)
 			if ok:
 				JavaScriptBridge.eval("window.SNBridge.send_dialogue_choice(%d, %d);" % [current_event_id, option_id])
+		_request_debug_refresh_if_visible()
 	close_dialogue()
+
+func _request_debug_refresh_if_visible() -> void:
+	var hud = get_node_or_null("/root/GameHud")
+	if hud == null:
+		return
+	var panel = hud.get_node_or_null("UIRoot/QuestDebugPanel")
+	if panel == null or not panel.visible:
+		return
+	var nc = get_node_or_null("/root/network_client")
+	if nc == null or not nc.has_method("request_quest_debug_snapshot"):
+		return
+	# Slight delay so server-side quest updates land before snapshot.
+	await get_tree().create_timer(0.3).timeout
+	nc.request_quest_debug_snapshot()
 
 func close_dialogue() -> void:
 	hide()

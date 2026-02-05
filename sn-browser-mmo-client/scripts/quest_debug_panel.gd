@@ -129,6 +129,7 @@ func set_quest_debug(quest: Dictionary) -> void:
 
 
 func set_flag_debug(flags: Array) -> void:
+	print("[QUEST_DEBUG_UI] set_flag_debug flags=", flags.size(), " vbox_children_before=", _flags_vbox.get_child_count(), " vbox_size=", _flags_vbox.size, " vbox_visible=", _flags_vbox.visible)
 	_clear_children(_flags_vbox)
 	# Sort by category then key
 	var sorted := flags.duplicate()
@@ -148,6 +149,7 @@ func set_flag_debug(flags: Array) -> void:
 		hbox.add_child(key_label)
 		hbox.add_child(val_label)
 		_flags_vbox.add_child(hbox)
+	print("[QUEST_DEBUG_UI] set_flag_debug done children=", _flags_vbox.get_child_count(), " vbox_size=", _flags_vbox.size)
 
 
 func _flag_sort_key(flag: Dictionary) -> String:

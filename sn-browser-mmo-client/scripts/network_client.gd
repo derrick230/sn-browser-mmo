@@ -78,6 +78,8 @@ var _js_despawn_interactable_callback: JavaScriptObject = null
 var _js_show_dialogue_callback: JavaScriptObject = null
 var _js_close_dialogue_callback: JavaScriptObject = null
 var _js_quest_debug_callback: JavaScriptObject = null
+# Cache of last quest debug flags for client-side diff logging.
+var _last_debug_flags: Dictionary = {}
 # Pending spawns when World wasn't ready (TS can fire before zone loads)
 var _pending_npc_spawns: Array[Dictionary] = []
 var _pending_interactable_spawns: Array[Dictionary] = []
@@ -824,7 +826,39 @@ func _on_js_quest_debug_snapshot(_args: Array) -> void:
 	var flags_var = data.get("flags", [])
 	var quest_dict: Dictionary = quest_var if quest_var is Dictionary else {}
 	var flags_arr: Array = flags_var if flags_var is Array else []
+	_log_flag_changes(flags_arr)
+	print("[QUEST_DEBUG] Emitting quest_debug_snapshot_received quest_keys=", quest_dict.keys(), " flags=", flags_arr.size())
 	quest_debug_snapshot_received.emit(quest_dict, flags_arr)
+
+func _log_flag_changes(flags_arr: Array) -> void:
+	var current: Dictionary = {}
+	for flag in flags_arr:
+		if not (flag is Dictionary):
+			continue
+		var key: String = str(flag.get("key", ""))
+		if key == "":
+			continue
+		current[key] = {
+			"value": str(flag.get("value", "")),
+			"flag_type": str(flag.get("flag_type", "")),
+			"category": str(flag.get("category", "")),
+		}
+
+	for key in current.keys():
+		var cur = current[key]
+		if not _last_debug_flags.has(key):
+			print("[QUEST_DEBUG] Flag added key='%s' value='%s' type='%s' category='%s'" % [key, cur.value, cur.flag_type, cur.category])
+		else:
+			var prev = _last_debug_flags[key]
+			if str(prev.value) != str(cur.value):
+				print("[QUEST_DEBUG] Flag updated key='%s' value='%s' (prev='%s')" % [key, cur.value, prev.value])
+
+	for key in _last_debug_flags.keys():
+		if not current.has(key):
+			var prev = _last_debug_flags[key]
+			print("[QUEST_DEBUG] Flag removed key='%s' prev='%s'" % [key, prev.value])
+
+	_last_debug_flags = current
 
 ## Request quest/flags debug snapshot from SpacetimeDB (dev-only).
 ## Result arrives asynchronously via quest_debug_snapshot_received signal.
